@@ -1,0 +1,69 @@
+<Window x:Class="KeySound.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:KeySound.Controls"
+        Title="KeySound" Height="560" Width="1280" MinWidth="800" MinHeight="420"
+        Background="#18181B" Foreground="#E4E4E7"
+        Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Label">
+            <Setter Property="Foreground" Value="#A1A1AA" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="MinWidth" Value="180" />
+            <Setter Property="Margin" Value="0,0,16,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,3" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Device and sound selection -->
+        <WrapPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Style="{StaticResource Label}" Text="MIDI in" />
+            <ComboBox x:Name="MidiCombo" SelectionChanged="MidiCombo_SelectionChanged" />
+            <TextBlock Style="{StaticResource Label}" Text="Audio out" />
+            <ComboBox x:Name="OutputCombo" MinWidth="220" SelectionChanged="OutputCombo_SelectionChanged" />
+            <TextBlock Style="{StaticResource Label}" Text="Sound" />
+            <ComboBox x:Name="SoundCombo" SelectionChanged="SoundCombo_SelectionChanged" />
+            <TextBlock Style="{StaticResource Label}" Text="Velocity" />
+            <ComboBox x:Name="VelocityCombo" MinWidth="130" SelectionChanged="VelocityCombo_SelectionChanged" />
+            <TextBlock Style="{StaticResource Label}" Text="Volume" />
+            <Slider x:Name="VolumeSlider" Width="120" Minimum="0" Maximum="1" VerticalAlignment="Center"
+                    Margin="0,0,16,0" ValueChanged="VolumeSlider_ValueChanged" />
+            <Button x:Name="AsioPanelButton" Content="ASIO settings" Click="AsioPanelButton_Click" />
+            <Button Content="Restart audio" Click="RestartAudio_Click" />
+            <Button Content="Refresh devices" Click="Refresh_Click" />
+            <Button Content="Sound folder" Click="SoundFolder_Click" />
+        </WrapPanel>
+
+        <!-- What is being played -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock x:Name="ChordText" FontSize="64" FontWeight="SemiBold" HorizontalAlignment="Center"
+                       Foreground="#FAFAFA" Text="—" />
+            <TextBlock x:Name="NotesText" FontSize="22" HorizontalAlignment="Center" Foreground="#A1A1AA"
+                       Margin="0,8,0,0" Text="Play something" />
+            <TextBlock x:Name="VelocityText" FontSize="13" HorizontalAlignment="Center" Foreground="#71717A"
+                       Margin="0,6,0,0" />
+            <TextBlock x:Name="SustainText" FontSize="14" HorizontalAlignment="Center" Foreground="#93C5FD"
+                       Margin="0,8,0,0" Text="Sustain" Visibility="Hidden" />
+        </StackPanel>
+
+        <controls:PianoKeyboard x:Name="PianoKeys" Grid.Row="2" Margin="0,8,0,8" />
+
+        <TextBlock x:Name="StatusText" Grid.Row="3" Foreground="#71717A" TextTrimming="CharacterEllipsis" />
+    </Grid>
+</Window>

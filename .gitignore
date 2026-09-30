@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+*.user
+# SoundFonts are large and separately licensed; keep only the folder's README in the repository.
+SoundFonts/*
+!SoundFonts/README.md
